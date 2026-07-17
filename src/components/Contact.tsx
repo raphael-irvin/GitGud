@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState } from "react";
 
 interface FormValues {
@@ -9,6 +10,8 @@ interface FormValues {
   notes: string;
 }
 =======
+=======
+>>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
 import { useState } from 'react';
 
 // 🚧 PROBLEM STATEMENT 4: SIGN-UP FORM
@@ -20,11 +23,15 @@ import { useState } from 'react';
 // - On successful submit, show a success message (simulate in state)
 // - Submit button disabled while invalid or submitting
 // - Stretch: team size dropdown and character counter for notes textarea
+<<<<<<< HEAD
+>>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
+=======
 >>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
 
 interface FormErrors {
   name?: string;
   email?: string;
+<<<<<<< HEAD
 <<<<<<< HEAD
   team?: string;
 }
@@ -338,6 +345,114 @@ export default function Contact() {
     formValues.teamName.trim();
 
   return (
+=======
+  teamName?: string;
+}
+
+export default function Contact() {
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    teamName: '',
+    teamSize: '',
+    notes: '',
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Email validation regex
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Validate form
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formValues.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formValues.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formValues.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formValues.teamName.trim()) {
+      newErrors.teamName = 'Team name is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle input change
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    // Simulate API call
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      // Reset form after success
+      setFormValues({
+        name: '',
+        email: '',
+        teamName: '',
+        teamSize: '',
+        notes: '',
+      });
+    }, 1500);
+  };
+
+  // Reset form and show form again
+  const handleReset = () => {
+    setIsSuccess(false);
+    setFormValues({
+      name: '',
+      email: '',
+      teamName: '',
+      teamSize: '',
+      notes: '',
+    });
+    setErrors({});
+  };
+
+  const isFormValid =
+    formValues.name.trim() &&
+    formValues.email.trim() &&
+    validateEmail(formValues.email) &&
+    formValues.teamName.trim();
+
+  return (
+>>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
     <section id="contact" className="py-20 px-6 bg-slate-50">
       <div className="max-w-xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
@@ -485,6 +600,9 @@ export default function Contact() {
             </button>
           </form>
         )}
+<<<<<<< HEAD
+>>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
+=======
 >>>>>>> 7b80b1929dfe1e925968e6b05c4f90cda40e391d
       </div>
     </section>
